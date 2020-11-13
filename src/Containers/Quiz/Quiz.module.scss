@@ -1,0 +1,19 @@
+@import '../../SCSS/colors';
+.Quiz {
+  display: flex;
+  justify-content: center;
+  flex-grow: 1;
+  width: 100%;
+  padding-top: 100px;
+  background-color: $quizColor;
+
+  .QuizWrapper {
+    width: 600px;
+    .quizTitle {
+      font-size: large;
+      font-weight: 800;
+      color: white;
+      margin-bottom: 10px;
+    }
+  }
+}

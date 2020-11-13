@@ -1,0 +1,13 @@
+@import '../../SCSS/colors';
+.ActiveQuiz{
+ padding:20px;
+ color:$fontColor;
+ border:2px solid black;
+ border-radius: 5px;
+ margin:0 10px;
+ .Question{
+     display: flex;
+     justify-content: space-between;
+     margin-bottom: 10px;
+ }
+}

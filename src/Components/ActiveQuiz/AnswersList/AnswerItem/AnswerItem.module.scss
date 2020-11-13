@@ -1,0 +1,20 @@
+@import '../../../../SCSS/colors';
+
+.AnswerItem{
+  padding:5px 10px;
+  border:1px solid $fontColor;
+  margin-bottom: 5px;
+  cursor: pointer;
+  &:hover{
+      background-color:rgba(233, 125, 215, 0.5);
+      transition: background .3s ease-in-out;
+  }
+
+
+}
+ .success{
+    background-color: green;
+  }
+  .error{
+    background-color: red;
+  }
