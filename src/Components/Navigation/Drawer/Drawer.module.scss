@@ -1,0 +1,17 @@
+.Drawer{
+  position:absolute;
+  left:0;
+  top:0;
+  bottom:0;
+  width:80%;
+  max-width: 300px;
+  padding:20px 10px;
+  background-color:rgb(245, 229, 229);
+  transform:translateX(0px);
+  transition:transform .22s ease-in;
+  z-index:100;
+   &.close{
+       opacity: 0;
+       transform:translateX(-300px)
+   }
+}
