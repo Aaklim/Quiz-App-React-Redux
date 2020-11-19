@@ -1,6 +1,6 @@
 import React from 'react';
 
-const QuizCreator = () => {
+const QuizCreator = (props) => {
   return <div>QuizCreator</div>;
 };
 
