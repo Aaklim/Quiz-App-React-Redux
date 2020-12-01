@@ -6,7 +6,7 @@ import { NavLink } from 'react-router-dom';
 const links = [
   { to: '/', label: 'Список', exact: true },
   { to: '/auth', label: 'Авторизация', exact: false },
-  { to: '/quiz-creator', label: 'Сздать тест', exact: false },
+  { to: '/quiz-creator', label: 'Создать тест', exact: false },
 ];
 
 const Drawer = (props) => {
