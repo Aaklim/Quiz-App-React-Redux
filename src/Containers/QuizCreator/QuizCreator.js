@@ -8,6 +8,7 @@ import {
   validate,
   validateForm,
 } from '../../form/formFramework';
+import Axios from 'axios';
 
 function createOptionControl(number) {
   return createControl(
@@ -76,9 +77,23 @@ export class QuizCreator extends Component {
       formControls: createFormControls(),
     });
   };
-  createQuizHandler = (event) => {
+  createQuizHandler = async (event) => {
     event.preventDefault();
-    console.log('Quizes', this.state.quiz);
+    try {
+      const response = await Axios.post(
+        'https://quiz-app-react-redux.firebaseio.com/quizes.json',
+        this.state.quiz
+      );
+      this.setState({
+        quiz: [],
+        rightAnswerId: 1,
+        isFormValid: false,
+        formControls: createFormControls(),
+      });
+      console.log(response);
+    } catch (e) {
+      console.log('ErrorPost', e);
+    }
   };
   changeHandler = (value, controlName) => {
     console.log('ControlName', controlName);

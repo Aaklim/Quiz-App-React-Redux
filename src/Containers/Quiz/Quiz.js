@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ActiveQuiz from '../../Components/ActiveQuiz/ActiveQuiz';
 import FinishedQuiz from '../../Components/FinishedQuiz/FinishedQuiz';
+import Axios from 'axios';
+import Loader from '../../Components/UI/Loader/Loader';
 import classes from './Quiz.module.scss';
 
 export class Quiz extends Component {
@@ -9,31 +11,22 @@ export class Quiz extends Component {
     isFinished: false,
     answerState: null,
     activeQuestion: 0,
-    quiz: [
-      {
-        question: 'Какого цвета небо?',
-        rightAnswerId: 2,
-        id: 1,
-        answers: [
-          { text: 'Черный', id: 1 },
-          { text: 'Синий', id: 2 },
-          { text: 'Красный', id: 3 },
-          { text: 'Зеленый', id: 4 },
-        ],
-      },
-      {
-        question: 'ЯМы Сколько процентов?',
-        rightAnswerId: 3,
-        id: 2,
-        answers: [
-          { text: '80', id: 1 },
-          { text: '3', id: 2 },
-          { text: '97', id: 3 },
-          { text: '0', id: 4 },
-        ],
-      },
-    ],
+    quiz: [],
   };
+  async componentDidMount() {
+    console.log('Props', this.props.match.params.id);
+    try {
+      const response = await Axios.get(
+        `https://quiz-app-react-redux.firebaseio.com/quizes/${this.props.match.params.id}.json`
+      );
+      console.log('QuizRespose', response);
+      this.setState({
+        quiz: response.data,
+      });
+    } catch (e) {
+      console.log('QuizError', e);
+    }
+  }
 
   onAnswerClickhandler = (answerId) => {
     if (this.state.answerState) {
@@ -90,6 +83,9 @@ export class Quiz extends Component {
   }
 
   render() {
+    if (this.state.quiz.length === 0) {
+      return <Loader />;
+    }
     return (
       <div className={classes.Quiz}>
         <div className={classes.QuizWrapper}>
