@@ -5,7 +5,7 @@ import Layout from './Hoc/Layout/Layout';
 import { Route, Switch } from 'react-router-dom';
 import Auth from './Containers/Auth/Auth';
 import QuizCreator from './Containers/QuizCreator/QuizCreator';
-import Quizlist from './Containers/QuizList/Quizlist';
+import QuizListContainer from './Containers/QuizList/QuizListContainer';
 
 function App() {
   return (
@@ -14,7 +14,7 @@ function App() {
         <Route path='/auth' component={Auth} />
         <Route path='/quiz-creator' component={QuizCreator} />
         <Route path='/quiz/:id' component={Quiz} />
-        <Route path='/' component={Quizlist} />
+        <Route path='/' component={QuizListContainer} />
       </Switch>
     </Layout>
   );

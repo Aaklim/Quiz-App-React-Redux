@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import classes from './Auth.module.scss';
 import Button from '../../Components/UI/Button/Button';
 import Input from '../../Components/UI/Input/Input';
+import Axios from 'axios';
 
 function validateEmail(email) {
   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -39,8 +40,38 @@ class Auth extends Component {
     },
   };
 
-  loginHandler = () => {};
-  registerHandler = () => {};
+  loginHandler = async () => {
+    const authData = {
+      email: this.state.formControls.email.value,
+      password: this.state.formControls.password.value,
+      returnSecureToken: true,
+    };
+    try {
+      const response = await Axios.post(
+        'https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyAcuG-UZAT_0wSJC6zYt1pObzPPWkBx_tc',
+        authData
+      );
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
+  registerHandler = async () => {
+    const authData = {
+      email: this.state.formControls.email.value,
+      password: this.state.formControls.password.value,
+      returnSecureToken: true,
+    };
+    try {
+      const response = await Axios.post(
+        'https://identitytoolkit.googleapis.com/v1/accounts:signUp?key=AIzaSyAcuG-UZAT_0wSJC6zYt1pObzPPWkBx_tc',
+        authData
+      );
+      console.log(response);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   submitHandler = (event) => {
     event.preventDefault();
   };
