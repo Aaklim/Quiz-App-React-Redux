@@ -5,3 +5,6 @@ export const getQuizesSelector = (state) => {
 export const quizesIsLoadingSelector = (state) => {
   return state.quizList.quizesIsLoading;
 };
+export const getQuizSelector = (state) => {
+  return state.quiz;
+};
