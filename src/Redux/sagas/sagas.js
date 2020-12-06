@@ -1,5 +1,9 @@
 import { all, takeEvery, call, put } from 'redux-saga/effects';
-import { GET_QUIZES_SAGA, GET_QUIZE_SAGA } from '../actions/actions';
+import {
+  CREATE_QUIZ_SAGA,
+  GET_QUIZES_SAGA,
+  GET_QUIZE_SAGA,
+} from '../actions/actions';
 import {
   getQuizes,
   getQuiz,
@@ -27,6 +31,15 @@ function* getQuizWorker(action) {
   yield put(getQuiz(data));
 }
 ///////
+
+///CreateQuiz sagas
+function* createquizWatcher() {
+  yield takeEvery(CREATE_QUIZ_SAGA, createQuizWorker);
+}
+function* createQuizWorker(action) {
+  yield call(Api.createQuiz, action.payload);
+}
+/////
 export function* rootSaga() {
-  yield all([getQuizesWatcher(), getQuizWatcher()]);
+  yield all([getQuizesWatcher(), getQuizWatcher(), createquizWatcher()]);
 }

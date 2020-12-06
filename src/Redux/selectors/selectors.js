@@ -8,3 +8,6 @@ export const quizesIsLoadingSelector = (state) => {
 export const getQuizSelector = (state) => {
   return state.quiz;
 };
+export const getQuizCreatorStateSelector = (state) => {
+  return state.quizCreator.quiz;
+};

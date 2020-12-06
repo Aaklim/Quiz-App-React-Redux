@@ -8,6 +8,8 @@ import {
   SET_QUIZ_IS_FINISHED,
   TOGGLE_ACTIVE_QUESTION,
   RETRY_QUIZ,
+  ADD_QUESTION_TO_QUIZ,
+  CREATE_QUIZ_SAGA,
 } from '../actions/actions';
 
 //////QuizesList section
@@ -60,5 +62,22 @@ export const toggleActiveQuestion = () => {
 export const retryQuiz = () => {
   return {
     type: RETRY_QUIZ,
+  };
+};
+
+///QuizCreator
+
+export const addQuestionToQuiz = (question) => {
+  console.log('Fromdispacth', question);
+  return {
+    type: ADD_QUESTION_TO_QUIZ,
+    payload: question,
+  };
+};
+
+export const createQuizSaga = (quiz) => {
+  return {
+    type: CREATE_QUIZ_SAGA,
+    payload: quiz,
   };
 };

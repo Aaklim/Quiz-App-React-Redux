@@ -17,7 +17,7 @@ const QuizListContainer = (props) => {
   const renderQuizes = (quizes) => {
     return Object.keys(quizes).map((quizItem, index) => {
       const quiz = quizes[quizItem];
-      console.log('Quizlist-Quiz', quiz);
+
       return (
         <li key={index}>
           <NavLink to={'/quiz/' + quizItem}>Тест {quiz[0].question}</NavLink>
