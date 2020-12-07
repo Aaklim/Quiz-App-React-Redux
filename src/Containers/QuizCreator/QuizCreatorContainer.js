@@ -9,12 +9,12 @@ import {
 import QuizCreatorForm from './QuizCreatorForm';
 
 const QuizCreatorContainer = (props) => {
-  console.log('QuizCreator', props);
+  const quizLength = props.quiz.length;
   const submitHandler = (e) => {
     let questionItem = {
       question: e.question,
       rightAnswerId: Number(e.rightAnswer),
-      id: props.quiz.length + 1,
+      id: quizLength + 1,
       answers: [
         { id: 1, text: e.answer1 },
         { id: 2, text: e.answer2 },
@@ -33,6 +33,7 @@ const QuizCreatorContainer = (props) => {
     <QuizCreatorForm
       onSubmit={(e) => submitHandler(e)}
       createQuiz={createQuiz}
+      quizLength={quizLength}
     />
   );
 };

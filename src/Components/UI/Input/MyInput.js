@@ -2,13 +2,17 @@ import React from 'react';
 import classes from './MyInput.module.scss';
 
 const MyInput = (props) => {
-  console.log(`inputProps-${props.input.name}`, props);
-  console.log('Input Error', props.meta.error);
+  const cls = [classes.Input];
+  if (props.meta.error && props.meta.touched) {
+    cls.push(classes.error);
+  }
   return (
-    <div className={classes.Input}>
+    <div className={cls.join(' ')}>
       <label>{props.label}</label>
       <input {...props.input} />
-      {props.meta.error ? <span>{props.meta.error}</span> : null}
+      {props.meta.error && props.meta.touched ? (
+        <span>{props.meta.error}</span>
+      ) : null}
     </div>
   );
 };

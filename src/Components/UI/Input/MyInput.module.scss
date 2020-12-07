@@ -16,4 +16,13 @@
        transition: all 0.3s ease-in-out;
 
    }
+
+}
+.error{
+    label{
+        color:red
+    }
+    span{
+        color:red
+    }
 }

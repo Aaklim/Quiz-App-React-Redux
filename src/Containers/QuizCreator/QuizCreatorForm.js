@@ -9,6 +9,7 @@ import { lenghtControl, validate } from '../../form/controls';
 import MySelect from '../../Components/UI/Select/MySelect';
 
 const QuizCreatorForm = (props) => {
+  console.log('QuizCreatorProps', props);
   return (
     <div className={classes.QuizCreator}>
       <div className={classes.content}>
@@ -20,8 +21,14 @@ const QuizCreatorForm = (props) => {
           <Field name='answer3' component={MyInput} label='Вариант 3' />
           <Field name='answer4' component={MyInput} label='Вариант 4' />
           <Field name='rightAnswer' component={MySelect} />
-          <Button type='primary'>Добавить вопрос</Button>
-          <Button type='success' onClick={props.createQuiz}>
+          <Button type='primary' disabled={props.invalid}>
+            Добавить вопрос
+          </Button>
+          <Button
+            type='success'
+            disabled={!props.quizLength}
+            onClick={props.createQuiz}
+          >
             Создать Тест
           </Button>
         </Form>
