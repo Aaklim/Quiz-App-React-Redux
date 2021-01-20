@@ -7,12 +7,13 @@ import QuizCreator from './Containers/QuizCreator/QuizCreator';
 import QuizCreatorContainer from './Containers/QuizCreator/QuizCreatorContainer';
 import QuizListContainer from './Containers/QuizList/QuizListContainer';
 import QuizContainer from './Containers/Quiz/QuizContainer';
+import AuthContainer from './Containers/Auth/AuthContainer';
 
 function App() {
   return (
     <Layout>
       <Switch>
-        <Route path='/auth' component={Auth} />
+        <Route path='/auth' component={AuthContainer} />
         <Route path='/quiz-creator' component={QuizCreatorContainer} />
         <Route path='/quiz/:id' component={QuizContainer} />
         <Route path='/' component={QuizListContainer} />
