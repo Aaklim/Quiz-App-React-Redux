@@ -1,0 +1,29 @@
+{
+    "extends": [
+        "react-app",
+        "react-app/jest",
+        "airbnb",
+        "prettier",
+        "prettier/react"
+    ],
+    "plugins": [
+        "react",
+        "prettier"
+    ],
+    "rules": {
+        "react/jsx-filename-extension": [
+            1,
+            {
+                "extensions": [
+                    ".js",
+                    ".jsx"
+                ]
+            }
+        ],
+        "react/state-in-constructor": [
+            2,
+            "never"
+        ]
+    }
+   
+}

@@ -1,36 +1,36 @@
 export const lenghtControl = (value, allvalues, props, name) => {
-  // console.log('FromControlValue', value);
+  console.log('FromControlValue', value)
   // console.log('FromControlAllvalues', allvalues);
   // console.log('FromControlAllprops', props.anyTouched);
   // console.log('FromControlAllname', name);
   if (props.anyTouched && !value) {
-    return 'Is Empty Error';
+    return 'Is Empty Error'
   } else {
-    return undefined;
+    return undefined
   }
-};
+}
 
 export const validate = (values) => {
-  console.log('ValidateValues', values);
-  const errors = {};
+  console.log('ValidateValues', values)
+  const errors = {}
   if (!values.question) {
-    errors.question = 'Введите вопрос';
+    errors.question = 'Введите вопрос'
   }
   if (!values.answer1) {
-    errors.answer1 = 'Введите ответ';
+    errors.answer1 = 'Введите ответ'
   }
   if (!values.answer2) {
-    errors.answer2 = 'Введите ответ';
+    errors.answer2 = 'Введите ответ'
   }
   if (!values.answer3) {
-    errors.answer3 = 'Введите ответ';
+    errors.answer3 = 'Введите ответ'
   }
   if (!values.answer4) {
-    errors.answer4 = 'Введите ответ';
+    errors.answer4 = 'Введите ответ'
   }
   if (!values.rightAnswer) {
-    errors.rightAnswer = 'Укажите правильный ответ';
+    errors.rightAnswer = 'Укажите правильный ответ'
   }
-  console.log('ValidateErrrors', errors);
-  return errors;
-};
+  console.log('ValidateErrrors', errors)
+  return errors
+}
