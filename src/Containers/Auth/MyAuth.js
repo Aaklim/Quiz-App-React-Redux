@@ -1,39 +1,43 @@
-import React from 'react';
-import classes from './myAuth.module.scss';
-import MyInput from '../../Components/UI/Input/MyInput';
-import Button from '../../Components/UI/Button/Button';
+import React, { useEffect } from 'react'
+import classes from './myAuth.module.scss'
+import MyInput from '../../Components/UI/Input/MyInput'
+import Button from '../../Components/UI/Button/Button'
+import { validate } from '../../form/controls'
 
-import { reduxForm, Field, Form } from 'redux-form';
+import { reduxForm, Field, Form } from 'redux-form'
 
 const MyAuth = (props) => {
+  console.log('MyAuthProps', props)
   return (
     <div className={classes.Auth}>
       <div className={classes.wrapper}>
         <h1>Авторизация</h1>
         <Form onSubmit={props.handleSubmit}>
-          <Field name='auth' component={MyInput} label='Логин' />
-          <Field name='password' component={MyInput} label='Пароль' />
-          <Field name='button1' component={Button} />
-          <Button
-            type='success'
-            name='pass'
+          <Field name="email" component={MyInput} label="Логин" />
+          <span>{props.ApiError}</span>
+          <Field name="password" component={MyInput} label="Пароль" />
+          <Field
+            name="login"
+            component={Button}
+            type="success"
             onClick={props.login}
-            // disabled={!props.isFormValid}
+            disabled={!(props.valid && props.anyTouched)}
           >
             Войти
-          </Button>
-          <Button
-            type='primary'
-            name='auth'
-            // onClick={props.handleSubmit}
-            // disabled={!props.isFormValid}
+          </Field>
+          <Field
+            name="registration"
+            component={Button}
+            type="primary"
+            onClick={props.registration}
+            disabled={!(props.valid && props.anyTouched)}
           >
             Зарегистрироваться
-          </Button>
+          </Field>
         </Form>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default reduxForm({ form: 'auth' })(MyAuth);
+export default reduxForm({ form: 'auth', validate })(MyAuth)

@@ -10,6 +10,9 @@
   transform:translateX(0px);
   transition:transform .22s ease-in;
   z-index:100;
+   & a {
+    color:rgb(58, 55, 55);  
+   };
    &.close{
        opacity: 0;
        transform:translateX(-300px)

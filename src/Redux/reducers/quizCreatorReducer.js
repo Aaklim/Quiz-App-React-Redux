@@ -1,8 +1,8 @@
-import { ADD_QUESTION_TO_QUIZ } from '../actions/actions';
+import { ADD_QUESTION_TO_QUIZ, CLEAN_QUIZ_CREATOR } from '../actions/actions'
 
 const initialstate = {
   quiz: [],
-};
+}
 
 const quizCreatorReducer = (state = initialstate, action) => {
   switch (action.type) {
@@ -10,10 +10,13 @@ const quizCreatorReducer = (state = initialstate, action) => {
       return {
         ...state,
         quiz: [...state.quiz, action.payload],
-      };
-    default:
-      return state;
-  }
-};
+      }
+    case CLEAN_QUIZ_CREATOR:
+      return { ...initialstate }
 
-export default quizCreatorReducer;
+    default:
+      return state
+  }
+}
+
+export default quizCreatorReducer

@@ -1,17 +1,18 @@
-import React from 'react';
-import { getQuizCreatorStateSelector } from '../../Redux/selectors/selectors';
-import { connect } from 'react-redux';
-import { reset } from 'redux-form';
+import React from 'react'
+import { connect } from 'react-redux'
+import { reset } from 'redux-form'
+import { getQuizCreatorStateSelector } from '../../Redux/selectors/selectors'
 import {
   addQuestionToQuiz,
   createQuizSaga,
-} from '../../Redux/actioncreators/actioncreators';
-import QuizCreatorForm from './QuizCreatorForm';
+} from '../../Redux/actioncreators/actioncreators'
+import QuizCreatorForm from './QuizCreatorForm'
 
 const QuizCreatorContainer = (props) => {
-  const quizLength = props.quiz.length;
+  const quizLength = props.quiz.length
   const submitHandler = (e) => {
-    let questionItem = {
+    const questionItem = {
+      quizName: e.quizName,
       question: e.question,
       rightAnswerId: Number(e.rightAnswer),
       id: quizLength + 1,
@@ -21,35 +22,34 @@ const QuizCreatorContainer = (props) => {
         { id: 3, text: e.answer3 },
         { id: 4, text: e.answer4 },
       ],
-    };
-    props.addQuestionToQuiz(questionItem);
-    props.reset('quizCreatorform');
-  };
+    }
+    props.addQuestionToQuiz(questionItem)
+    props.reset('quizCreatorform')
+  }
   const createQuiz = (e) => {
-    e.preventDefault();
-    props.createQuizSaga(props.quiz);
-  };
+    e.preventDefault()
+    props.createQuizSaga(props.quiz, props.userId)
+  }
   return (
     <QuizCreatorForm
       onSubmit={(e) => submitHandler(e)}
       createQuiz={createQuiz}
       quizLength={quizLength}
     />
-  );
-};
+  )
+}
 
-const mapStateToProps = (state) => {
-  return {
-    quiz: getQuizCreatorStateSelector(state),
-  };
-};
+const mapStateToProps = (state) => ({
+  quiz: getQuizCreatorStateSelector(state),
+  userId: state.auth.userId,
+})
 const mapDispatchToProps = {
   addQuestionToQuiz,
   reset,
   createQuizSaga,
-};
+}
 
 export default connect(
   mapStateToProps,
-  mapDispatchToProps
-)(QuizCreatorContainer);
+  mapDispatchToProps,
+)(QuizCreatorContainer)

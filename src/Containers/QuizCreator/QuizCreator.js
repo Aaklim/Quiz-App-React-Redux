@@ -1,14 +1,10 @@
-import React, { Component } from 'react';
-import classes from './QuizCreator.module.scss';
-import Button from '../../Components/UI/Button/Button';
-import Input from '../../Components/UI/Input/Input';
-import Select from '../../Components/UI/Select/Select';
-import {
-  createControl,
-  validate,
-  validateForm,
-} from '../../form/formFramework';
-import Axios from 'axios';
+import React, { Component } from 'react'
+import Axios from 'axios'
+import classes from './QuizCreator.module.scss'
+import Button from '../../Components/UI/Button/Button'
+import Input from '../../Components/UI/Input/Input'
+import Select from '../../Components/UI/Select/Select'
+import { createControl, validate, validateForm } from '../../form/formFramework'
 
 function createOptionControl(number) {
   return createControl(
@@ -17,8 +13,8 @@ function createOptionControl(number) {
       errorMessage: 'Значение не может быть пустым',
       id: number,
     },
-    { required: true }
-  );
+    { required: true },
+  )
 }
 function createFormControls() {
   return {
@@ -27,13 +23,13 @@ function createFormControls() {
         label: 'Введите вопрос',
         errorMessage: 'Вопрос не может быть пустым',
       },
-      { required: true }
+      { required: true },
     ),
     option1: createOptionControl(1),
     option2: createOptionControl(2),
     option3: createOptionControl(3),
     option4: createOptionControl(4),
-  };
+  }
 }
 export class QuizCreator extends Component {
   state = {
@@ -41,22 +37,24 @@ export class QuizCreator extends Component {
     rightAnswerId: 1,
     isFormValid: false,
     formControls: createFormControls(),
-  };
-  submitHandler = (event) => {
-    event.preventDefault();
-  };
-  addQuestionHandler = (event) => {
-    event.preventDefault();
+  }
 
-    const quiz = this.state.quiz.concat();
-    const index = quiz.length + 1;
+  submitHandler = (event) => {
+    event.preventDefault()
+  }
+
+  addQuestionHandler = (event) => {
+    event.preventDefault()
+
+    const quiz = this.state.quiz.concat()
+    const index = quiz.length + 1
     const {
       question,
       option1,
       option2,
       option3,
       option4,
-    } = this.state.formControls;
+    } = this.state.formControls
 
     const questionItem = {
       question: question.value,
@@ -68,59 +66,63 @@ export class QuizCreator extends Component {
         { text: option3.value, id: option3.id },
         { text: option4.value, id: option4.id },
       ],
-    };
-    quiz.push(questionItem);
+    }
+    quiz.push(questionItem)
     this.setState({
       quiz,
       rightAnswerId: 1,
       isFormValid: false,
       formControls: createFormControls(),
-    });
-  };
+    })
+  }
+
   createQuizHandler = async (event) => {
-    event.preventDefault();
+    event.preventDefault()
     try {
       const response = await Axios.post(
         'https://quiz-app-react-redux.firebaseio.com/quizes.json',
-        this.state.quiz
-      );
+        this.state.quiz,
+      )
       this.setState({
         quiz: [],
         rightAnswerId: 1,
         isFormValid: false,
         formControls: createFormControls(),
-      });
-      console.log(response);
+      })
+      console.log(response)
     } catch (e) {
-      console.log('ErrorPost', e);
+      console.log('ErrorPost', e)
     }
-  };
+  }
+
   changeHandler = (value, controlName) => {
-    console.log('ControlName', controlName);
-    console.log('Value', value);
-    const formControls = { ...this.state.formControls };
-    const control = { ...formControls[controlName] };
+    console.log('ControlName', controlName)
+    console.log('Value', value)
+    const formControls = { ...this.state.formControls }
+    const control = { ...formControls[controlName] }
 
-    control.touched = true;
-    control.value = value;
-    control.valid = validate(control.value, control.validation);
+    control.touched = true
+    control.value = value
+    control.valid = validate(control.value, control.validation)
 
-    formControls[controlName] = control;
+    formControls[controlName] = control
     this.setState({
       formControls,
       isFormValid: validateForm(formControls),
-    });
-  };
+    })
+  }
+
   selectChangeHandler = (event) => {
-    let value = event.target.value;
-    console.log(value);
+    const { value } = event.target
+    console.log(value)
     this.setState({
       rightAnswerId: +value,
-    });
-  };
-  renderInputs = () => {
-    return Object.keys(this.state.formControls).map((controlName, index) => {
-      const control = this.state.formControls[controlName];
+    })
+  }
+
+  renderInputs = () =>
+    Object.keys(this.state.formControls).map((controlName, index) => {
+      const control = this.state.formControls[controlName]
       return (
         <Input
           key={controlName + index}
@@ -134,14 +136,13 @@ export class QuizCreator extends Component {
             this.changeHandler(event.target.value, controlName)
           }
         />
-      );
-    });
-  };
+      )
+    })
 
   render() {
     const select = (
       <Select
-        label='Выберите правильный ответ'
+        label="Выберите правильный ответ"
         value={this.state.rightAnswerId}
         onChange={this.selectChangeHandler}
         options={[
@@ -151,7 +152,7 @@ export class QuizCreator extends Component {
           { text: 4, value: 4 },
         ]}
       />
-    );
+    )
     return (
       <div className={classes.QuizCreator}>
         <div className={classes.content}>
@@ -161,14 +162,14 @@ export class QuizCreator extends Component {
             {this.renderInputs()}
             {select}
             <Button
-              type='primary'
+              type="primary"
               onClick={this.addQuestionHandler}
               disabled={!this.state.isFormValid}
             >
               Добавить вопрос
             </Button>
             <Button
-              type='success'
+              type="success"
               onClick={this.createQuizHandler}
               disabled={this.state.quiz.length === 0}
             >
@@ -177,8 +178,8 @@ export class QuizCreator extends Component {
           </form>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default QuizCreator;
+export default QuizCreator
