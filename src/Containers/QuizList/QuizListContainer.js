@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react'
 import Quizlist from './Quizlist'
+import classes from './QuizListContainer.module.scss'
 import { connect } from 'react-redux'
 import {
   getQuizesSelector,
@@ -19,33 +20,25 @@ const QuizListContainer = ({
   getQuizesSaga,
   quizes,
 }) => {
-  console.log('QuizContainer-props', userId)
   useEffect(() => {
-    console.log('UsEFFECT')
     getQuizesSaga(userId)
   }, [userId, getQuizesSaga])
+  const cls = [classes.delete, 'fas fa-times']
 
   const renderQuizes = (quizes) => {
     if (!quizes) return <h1>No Quizes</h1>
     return Object.keys(quizes).map((quizItem, index) => {
       const quiz = quizes[quizItem]
-      console.log('Quiz', quiz)
-      console.log('QuizItem', quizItem)
       return (
-        <li
-          key={index}
-          style={{ display: 'flex', justifyContent: 'space-between' }}
-        >
+        <li key={index}>
           <NavLink to={'/quiz/' + quizItem + `/${userId}`}>
             {quiz[0].quizName}
           </NavLink>
           {userId !== 'root' ? (
             <div
-              style={{ display: 'inline-block', marginLeft: '15px' }}
+              className={cls.join(' ')}
               onClick={() => deleteQuizSaga(quizItem, userId)}
-            >
-              Delete
-            </div>
+            ></div>
           ) : null}
         </li>
       )

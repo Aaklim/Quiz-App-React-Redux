@@ -3,10 +3,11 @@
     position: relative;
     display:flex;
     flex-direction: column;
-    height:100vh;
-    width:800px;
+    min-height: 100vh;
+    height:auto;
+    max-width:800px;
     margin:0 auto;
-    background-color: $layoutColor;
+    background:$background;
 
     main{
         display:flex;

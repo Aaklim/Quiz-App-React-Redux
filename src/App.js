@@ -19,12 +19,8 @@ function App(props) {
     if (localStorage.getItem('tokenID')) {
       const expirationDate = localStorage.getItem('expirationDate')
       if ((new Date(expirationDate) - new Date()) / 1000 >= 1) {
-        console.log('DateGetTime', new Date().getTime())
-        console.log('ExpirationDate', expirationDate)
-        console.log('TokenDate', new Date(expirationDate))
         props.authGetToken(localStorage.getItem('tokenID'))
         props.authGetUserId(localStorage.getItem('userId'))
-
         props.authGetEmailPassword({
           email: localStorage.getItem('userEmail'),
           password: 'PassWord',

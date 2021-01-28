@@ -1,19 +1,24 @@
 @import '../../SCSS/colors';
+@import '../../SCSS/shadows';
 .Quiz {
   display: flex;
   justify-content: center;
   flex-grow: 1;
   width: 100%;
-  padding-top: 100px;
-  background-color: $quizColor;
+  padding-top: 70px;
+  background:$background;
 
   .QuizWrapper {
-    width: 600px;
+    max-width: 600px;
+    width:100%;
+    
     .quizTitle {
-      font-size: large;
-      font-weight: 800;
-      color: white;
-      margin-bottom: 10px;
+      font-size: 2rem;
+      text-shadow:$text-shadow;
+      text-align: center;
+      color:$fontColor;
+      margin-bottom: 20px;
+      
     }
   }
 }

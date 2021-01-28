@@ -1,8 +1,52 @@
-.QuizList{
-  display:flex;
+@import '../../SCSS/colors';
+@import '../../SCSS/shadows';
+.wrapper {
+  display: flex;
   justify-content: center;
-  padding-top: 100px;
+  padding-top: 70px;
   width: 100%;
   flex-grow: 1;
-  background-color: rgb(59, 216, 45);
+  background: $background;
+  .content {
+    padding: 0 20px;
+    & .title {
+      margin-bottom: 20px;
+      text-align: center;
+      text-shadow: $text-shadow;
+      font-size: 2.5rem;
+      color: $fontColor;
+    }
+    & .quizes {
+      display: flex;
+      flex-direction: column;
+      list-style-position: inside;
+      counter-reset: li;
+      & li {
+        margin-bottom: 10px;
+      }
+      & a {
+        flex-grow: 1;
+        text-shadow: $text-shadow;
+        color: $fontColor;
+        font-size: 1.5rem;
+        margin-bottom: 10px;
+        transition: color 0.3s ease-in-out;
+        &::before {
+          content: counter(li) '. ';
+          counter-increment: li;
+        }
+        &:hover{
+          color:$colorHover;
+          &:visited{
+            color:$colorHover;
+          }
+
+        }
+        &:visited {
+          color: rgb(233, 233, 233);
+          text-shadow: $text-shadow;
+        }
+      }
+    }
+  }
 }

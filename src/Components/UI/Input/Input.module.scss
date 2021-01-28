@@ -1,11 +1,15 @@
+@import'../../../SCSS/colors';
+@import'../../../SCSS/shadows';
 .Input{
    margin-bottom: 15px;
+   
    label{
-
+       text-shadow:$text-shadow;
+       color:$fontColor;
        margin-bottom: 3px;
        padding:0;
        display: block;
-       font-weight: bold;
+    //    font-weight: bold;
    }
    input {
        display:block;

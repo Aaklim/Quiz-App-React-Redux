@@ -1,0 +1,14 @@
+.delete{
+    align-self: center;
+    color:white;
+    margin-left:40px;
+    transition: color 0.3s ease-in-out;
+    &:hover{
+        color:red;
+        cursor: pointer;
+    }
+}
+li{
+    display:flex;
+    justify-content: space-between;
+}

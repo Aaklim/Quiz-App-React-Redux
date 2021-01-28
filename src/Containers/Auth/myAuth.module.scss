@@ -1,23 +1,41 @@
-.Auth{
-    display:flex;
-    justify-content: center;
-    padding-top: 100px;
-    background-color: rgb(228, 168, 168);
-    flex-grow: 1;
+@import '../../SCSS/colors';
+@import '../../SCSS/shadows';
+.Auth {
+  display: flex;
+  justify-content: center;
+  padding-top: 70px;
+  background:$background;
+  flex-grow: 1;
+  width: 100%;
+  color:$fontColor;
+  .wrapper {
+    display: flex;
+    flex-direction: column;
+    max-width: 300px;
     width:100%;
-    .wrapper{
-        display: flex;
-        flex-direction: column;
-        height:200px;
-        h1{
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        form{
-            flex-grow: 1;
-            display:flex;
-            flex-direction: column;
-           justify-content: space-between;
-        }
+    padding:10px;
+    
+    h1 {
+        text-align: center;
+        font-size: 2rem;
+        text-shadow:$text-shadow;
+        color:$fontColor;
+        margin-bottom: 20px;
     }
-   }
+    form {
+      color:$fontColor;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      background: #eee;
+      border-radius: 5px;
+      padding: 15px;
+      box-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+      & .apiError{
+        color:red;
+        margin-bottom: 15px;
+    }
+    }
+    
+  }
+}

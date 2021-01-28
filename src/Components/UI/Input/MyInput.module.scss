@@ -1,11 +1,12 @@
+@import '../../../SCSS/colors';
+@import '../../../SCSS/shadows';
 .Input{
-    margin-bottom: 15px;
+      margin-bottom: 15px;  
    label{
-
-       margin-bottom: 3px;
+       margin-bottom: 10px;
        padding:0;
        display: block;
-       font-weight: bold;
+       font-weight:500;
    }
    input {
        display:block;
@@ -14,8 +15,11 @@
        margin:0 0 5px;
        width:100%;
        transition: all 0.3s ease-in-out;
-
+     &:focus{
+        border:1px solid #7a7878;
+     }
    }
+  
 
 }
 .error{

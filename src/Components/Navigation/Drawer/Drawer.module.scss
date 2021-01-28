@@ -1,20 +1,38 @@
-.Drawer{
-  position:absolute;
-  left:0;
-  top:0;
-  bottom:0;
-  width:80%;
+@import '../../../SCSS/colors';
+@import '../../../SCSS/shadows';
+.Drawer {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 80%;
   max-width: 300px;
-  padding:20px 10px;
-  background-color:rgb(245, 229, 229);
-  transform:translateX(0px);
-  transition:transform .22s ease-in;
-  z-index:100;
-   & a {
-    color:rgb(58, 55, 55);  
-   };
-   &.close{
-       opacity: 0;
-       transform:translateX(-300px)
-   }
+  padding: 20px 10px;
+  background-color: $drawerColor;
+  transform: translateX(0px);
+  transition: transform 0.22s ease-in ;
+  z-index: 100;
+  & ul {
+    padding-left: 20px;
+  }
+  & li {
+    margin-bottom: 10px;
+    
+    & a {
+      transition: color 0.3s ease-in-out;
+      text-shadow:$text-shadow;
+      flex-grow: 1;
+      color:$fontColor;
+      font-size: 1.7rem;
+      
+    }
+    &:hover a {
+      color:$colorHover;
+     
+    }
+  }
+  &.close {
+    opacity: 0;
+    transform: translateX(-300px);
+  }
 }

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import classes from './myAuth.module.scss'
 import MyInput from '../../Components/UI/Input/MyInput'
 import Button from '../../Components/UI/Button/Button'
@@ -14,7 +14,9 @@ const MyAuth = (props) => {
         <h1>Авторизация</h1>
         <Form onSubmit={props.handleSubmit}>
           <Field name="email" component={MyInput} label="Логин" />
-          <span>{props.ApiError}</span>
+          {props.ApiError ? (
+            <div className={classes.apiError}>{props.ApiError}</div>
+          ) : null}
           <Field name="password" component={MyInput} label="Пароль" />
           <Field
             name="login"

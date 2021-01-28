@@ -1,8 +1,32 @@
+@import '../../SCSS/colors';
+@import '../../SCSS/shadows';
 .FinishedQuiz{
- padding:20px;
- color:white;
- border:2px solid white;
- margin:0 10px;
+    color: $fontColor;
+    margin: 0 10px;
+    border-radius: 5px;
+    background-image: url('../../img/papertexture6052.jpg');
+    box-shadow:
+        0 1px 1px rgba(0, 0, 0, 0.15),
+       0 10px 0 -5px #eee,
+       0 10px 1px -4px rgba(0, 0, 0, 0.15),
+      0 20px 0 -10px #eee,
+     0 20px 1px -9px rgba(0, 0, 0, 0.15);
+    
+    padding: 15px;
+    li {
+        margin-bottom: 10px;
+    }
+    .answers{
+       margin-right: 20px;
+    }
+    .rightAnswers {
+        margin-bottom: 10px;
+        text-align: center;
+        font-weight: 500;
+    }
+    .buttons{
+        text-align: center;
+    }
 }
 .success{
     color:green

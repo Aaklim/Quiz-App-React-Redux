@@ -1,52 +1,51 @@
-import React, { Component } from 'react';
-import ActiveQuiz from '../../Components/ActiveQuiz/ActiveQuiz';
-import FinishedQuiz from '../../Components/FinishedQuiz/FinishedQuiz';
-import Axios from 'axios';
-import Loader from '../../Components/UI/Loader/Loader';
-import classes from './Quiz.module.scss';
+import React, { Component } from 'react'
+import ActiveQuiz from '../../Components/ActiveQuiz/ActiveQuiz'
+import FinishedQuiz from '../../Components/FinishedQuiz/FinishedQuiz'
+import Loader from '../../Components/UI/Loader/Loader'
+import classes from './Quiz.module.scss'
 
 export class QuizTest extends Component {
   onAnswerClickhandler = (answerId) => {
     if (this.state.answerState) {
-      const key = Object.keys(this.state.answerState)[0];
+      const key = Object.keys(this.state.answerState)[0]
       if (this.state.answerState[key] === 'success') {
-        return;
+        return
       }
     }
 
-    const question = this.state.quiz[this.state.activeQuestion];
-    const results = this.state.results;
+    const question = this.state.quiz[this.state.activeQuestion]
+    const results = this.state.results
     if (question.rightAnswerId === answerId) {
       if (!results[question.id]) {
-        results[question.id] = 'success';
+        results[question.id] = 'success'
       }
       this.setState({
         answerState: { [answerId]: 'success' },
         results,
-      });
+      })
 
       const timeout = window.setTimeout(() => {
         if (this.isQuizFinished()) {
           this.setState({
             isFinished: true,
-          });
+          })
         } else {
           this.setState({
             activeQuestion: this.state.activeQuestion + 1,
             answerState: null,
-          });
+          })
         }
 
-        window.clearTimeout(timeout);
-      }, 1000);
+        window.clearTimeout(timeout)
+      }, 1000)
     } else {
-      results[question.id] = 'error';
+      results[question.id] = 'error'
       this.setState({
         answerState: { [answerId]: 'error' },
         results,
-      });
+      })
     }
-  };
+  }
 
   onRetryClickHandler = () => {
     this.setState({
@@ -54,15 +53,15 @@ export class QuizTest extends Component {
       isFinished: false,
       answerState: null,
       activeQuestion: 0,
-    });
-  };
+    })
+  }
   isQuizFinished() {
-    return this.state.activeQuestion + 1 === this.state.quiz.length;
+    return this.state.activeQuestion + 1 === this.state.quiz.length
   }
 
   render() {
     if (this.props.quiz.length === 0) {
-      return <Loader />;
+      return <Loader />
     }
     return (
       <div className={classes.Quiz}>
@@ -87,8 +86,8 @@ export class QuizTest extends Component {
           )}
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default QuizTest;
+export default QuizTest

@@ -1,14 +1,15 @@
-import React from 'react';
-import classes from './FinishedQuiz.module.scss';
-import Button from '../UI/Button/Button';
+import React from 'react'
+import classes from './FinishedQuiz.module.scss'
+import { Link } from 'react-router-dom'
+import Button from '../UI/Button/Button'
 
 const FinishedQuiz = (props) => {
   const successCount = Object.keys(props.results).reduce((total, key) => {
     if (props.results[key] === 'success') {
-      total++;
+      total++
     }
-    return total;
-  }, 0);
+    return total
+  }, 0)
 
   return (
     <div className={classes.FinishedQuiz}>
@@ -18,26 +19,32 @@ const FinishedQuiz = (props) => {
             'fas',
             props.results[quizItem.id] === 'error' ? 'fa-times' : 'fa-check',
             classes[props.results[quizItem.id]],
-          ];
+          ]
 
           return (
             <li key={index}>
-              <strong>{index + 1}</strong>.{quizItem.question}
+              <div className={classes.answers}>
+                <strong>{index + 1}. </strong>
+                {quizItem.question}
+              </div>
               <i className={cls.join(' ')} />
             </li>
-          );
+          )
         })}
       </ul>
-      <p>
+      <div className={classes.rightAnswers}>
         Правильно {successCount} из {props.quiz.length}
-      </p>
-      <div>
-        <Button onClick={props.onRetry} type='primary'>
-          Повторить
+      </div>
+      <div className={classes.buttons}>
+        <Button onClick={props.onRetry} type="primary">
+          repeat
         </Button>
+        <Link to="/userQuizes">
+          <Button type="success">Quizess</Button>
+        </Link>
       </div>
     </div>
-  );
-};
+  )
+}
 
-export default FinishedQuiz;
+export default FinishedQuiz

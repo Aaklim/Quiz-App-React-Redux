@@ -22,7 +22,6 @@ import {
   getQuiz,
   toggleQuizesIsLoading,
   authGetEmailPassword,
-  authLoginSaga,
   authGetToken,
   authError,
   authLogout,
