@@ -11,31 +11,33 @@ const MyAuth = (props) => {
   return (
     <div className={classes.Auth}>
       <div className={classes.wrapper}>
-        <h1>Авторизация</h1>
+        <h1>Login</h1>
         <Form onSubmit={props.handleSubmit}>
-          <Field name="email" component={MyInput} label="Логин" />
+          <Field name="email" component={MyInput} label="Email address" />
           {props.ApiError ? (
             <div className={classes.apiError}>{props.ApiError}</div>
           ) : null}
-          <Field name="password" component={MyInput} label="Пароль" />
-          <Field
-            name="login"
-            component={Button}
-            type="success"
-            onClick={props.login}
-            disabled={!(props.valid && props.anyTouched)}
-          >
-            Войти
-          </Field>
-          <Field
-            name="registration"
-            component={Button}
-            type="primary"
-            onClick={props.registration}
-            disabled={!(props.valid && props.anyTouched)}
-          >
-            Зарегистрироваться
-          </Field>
+          <Field name="password" component={MyInput} label="Password" />
+          <div className={classes.buttons}>
+            <Field
+              name="login"
+              component={Button}
+              type="success"
+              onClick={props.login}
+              disabled={!(props.valid && props.anyTouched)}
+            >
+              Log in
+            </Field>
+            <Field
+              name="registration"
+              component={Button}
+              type="primary"
+              onClick={props.registration}
+              disabled={!(props.valid && props.anyTouched)}
+            >
+              Sign up
+            </Field>
+          </div>
         </Form>
       </div>
     </div>

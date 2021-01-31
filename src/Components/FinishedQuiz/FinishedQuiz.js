@@ -2,6 +2,7 @@ import React from 'react'
 import classes from './FinishedQuiz.module.scss'
 import { Link } from 'react-router-dom'
 import Button from '../UI/Button/Button'
+import { withRouter } from 'react-router-dom'
 
 const FinishedQuiz = (props) => {
   const successCount = Object.keys(props.results).reduce((total, key) => {
@@ -10,7 +11,8 @@ const FinishedQuiz = (props) => {
     }
     return total
   }, 0)
-
+  const quizzesPath =
+    props.match.params.userId === 'root' ? '/' : '/user-quizzes'
   return (
     <div className={classes.FinishedQuiz}>
       <ul>
@@ -33,18 +35,19 @@ const FinishedQuiz = (props) => {
         })}
       </ul>
       <div className={classes.rightAnswers}>
-        Правильно {successCount} из {props.quiz.length}
+        Correct <span className={classes.success}>{successCount}</span> from{' '}
+        {props.quiz.length}
       </div>
       <div className={classes.buttons}>
         <Button onClick={props.onRetry} type="primary">
           repeat
         </Button>
-        <Link to="/userQuizes">
-          <Button type="success">Quizess</Button>
+        <Link to={quizzesPath}>
+          <Button type="success">Quizzes</Button>
         </Link>
       </div>
     </div>
   )
 }
 
-export default FinishedQuiz
+export default withRouter(FinishedQuiz)

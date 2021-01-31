@@ -2,33 +2,33 @@ export const validate = (values, props) => {
   const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
   const errors = {}
   if (!values.quizName) {
-    errors.quizName = 'Введите название теста'
+    errors.quizName = 'Enter Quiz name'
   }
   if (!values.question) {
-    errors.question = 'Введите вопрос'
+    errors.question = 'Enter question'
   }
   if (!values.answer1) {
-    errors.answer1 = 'Введите ответ'
+    errors.answer1 = 'Enter answer 1'
   }
   if (!values.answer2) {
-    errors.answer2 = 'Введите ответ'
+    errors.answer2 = 'Enter answer 2'
   }
   if (!values.answer3) {
-    errors.answer3 = 'Введите ответ'
+    errors.answer3 = 'Enter answer 3'
   }
   if (!values.answer4) {
-    errors.answer4 = 'Введите ответ'
+    errors.answer4 = 'Enter answer 4'
   }
   if (!values.rightAnswer) {
-    errors.rightAnswer = 'Укажите правильный ответ'
+    errors.rightAnswer = 'Select right answer'
   }
   if (!values.email) {
-    errors.email = 'Укажите email'
+    errors.email = 'Enter email address'
   } else if (!re.test(String(values.email).toLowerCase())) {
-    errors.email = 'Encorrect email address'
+    errors.email = 'Incorrect email address'
   }
   if (!values.password) {
-    errors.password = 'Введите пароль'
+    errors.password = 'Enter password'
   } else if (values.password.length < 6) {
     errors.password = 'Min 6 symbols'
   }

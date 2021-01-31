@@ -1,7 +1,7 @@
 import {
-  GET_QUIZES_SAGA,
-  TOGGLE_QUIZES_IS_LOADING,
-  GET_QUIZES,
+  GET_QUIZZES_SAGA,
+  TOGGLE_QUIZZES_IS_LOADING,
+  GET_QUIZZES,
   GET_QUIZE_SAGA,
   GET_QUIZE,
   SET_ANSWER_TO_STATE,
@@ -26,21 +26,21 @@ import {
 } from '../actions/actions'
 
 //////QuizesList section
-export const getQuizesSaga = (userId) => {
+export const getQuizzesSaga = (userId) => {
   return {
-    type: GET_QUIZES_SAGA,
+    type: GET_QUIZZES_SAGA,
     payload: userId,
   }
 }
-export const getQuizes = (quizes) => {
+export const getQuizzes = (quizzes) => {
   return {
-    type: GET_QUIZES,
-    payload: quizes,
+    type: GET_QUIZZES,
+    payload: quizzes,
   }
 }
-export const toggleQuizesIsLoading = () => {
+export const toggleQuizzesIsLoading = () => {
   return {
-    type: TOGGLE_QUIZES_IS_LOADING,
+    type: TOGGLE_QUIZZES_IS_LOADING,
   }
 }
 
@@ -82,7 +82,6 @@ export const retryQuiz = () => {
 ///QuizCreator section
 
 export const addQuestionToQuiz = (question) => {
-  console.log('Fromdispacth', question)
   return {
     type: ADD_QUESTION_TO_QUIZ,
     payload: question,

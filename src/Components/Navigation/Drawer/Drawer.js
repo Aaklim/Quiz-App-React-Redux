@@ -3,6 +3,10 @@ import Backdrop from '../../UI/Backdrop/Backdrop'
 import { connect } from 'react-redux'
 import classes from './Drawer.module.scss'
 import { NavLink } from 'react-router-dom'
+import {
+  getAuthorizedSelector,
+  getUserEmailSelector,
+} from '../../../Redux/selectors/selectors'
 
 const Drawer = (props) => {
   const cls = [classes.Drawer]
@@ -11,14 +15,18 @@ const Drawer = (props) => {
   }
   const links = props.authorized
     ? [
-        { to: '/', label: 'Список', exact: true },
-        { to: '/quiz-creator', label: 'Создать тест', exact: false },
-        { to: '/userQuizes', label: `${props.userEmail}`, exact: false },
-        { to: '/logout', label: 'Выйти', exact: false },
+        { to: '/', label: 'Root quizzes', exact: true },
+        { to: '/quiz-creator', label: 'Quiz creator', exact: false },
+        {
+          to: '/user-quizzes',
+          label: `${props.userEmail} quizzes`,
+          exact: false,
+        },
+        { to: '/logout', label: 'Logout', exact: false },
       ]
     : [
-        { to: '/', label: 'Список', exact: true },
-        { to: '/auth', label: 'Авторизация', exact: false },
+        { to: '/', label: 'Root quizzes', exact: true },
+        { to: '/auth', label: 'Login', exact: false },
       ]
   const renderLinks = () => {
     return links.map((link, index) => {
@@ -47,8 +55,8 @@ const Drawer = (props) => {
 }
 const mapStateToProps = (state) => {
   return {
-    authorized: !!state.auth.token,
-    userEmail: state.auth.email,
+    authorized: getAuthorizedSelector(state),
+    userEmail: getUserEmailSelector(state),
   }
 }
 

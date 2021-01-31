@@ -6,6 +6,11 @@ import {
   authLoginSaga,
   authRegisterSaga,
 } from '../../Redux/actioncreators/actioncreators'
+import {
+  getAuthErrorSelector,
+  getAuthorizedSelector,
+  getFormStateSelector,
+} from '../../Redux/selectors/selectors'
 import MyAuth from './MyAuth'
 
 const AuthContainer = (props) => {
@@ -35,9 +40,9 @@ const AuthContainer = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    error: state.auth.error,
-    authorized: !!state.auth.token,
-    formState: state.form,
+    error: getAuthErrorSelector(state),
+    authorized: getAuthorizedSelector(state),
+    formState: getFormStateSelector(state),
   }
 }
 const mapDispatchToProps = {

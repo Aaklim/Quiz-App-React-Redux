@@ -9,19 +9,19 @@
   margin-bottom: 10px;
   cursor: pointer;
   &.success{
-    background-color: green;
+    background-color:$answerSuccess;
   }
   &.error{
-    background-color: red;
+    background-color: $answerError;
   }
   &:hover{
       background-color:rgba(226, 216, 224, 0.5);
       transition: background .3s ease-in-out;
       &.success{
-        background-color: green;
+        background-color:$answerSuccess;
       }
       &.error {
-        background-color: red;
+        background-color: $answerError;
       }
   }
 

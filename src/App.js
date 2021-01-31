@@ -8,6 +8,7 @@ import {
   authGetEmailPassword,
   authLogoutSaga,
 } from './Redux/actioncreators/actioncreators'
+import { getUserIdSelector } from './Redux/selectors/selectors'
 import QuizCreatorContainer from './Containers/QuizCreator/QuizCreatorContainer'
 import QuizListContainer from './Containers/QuizList/QuizListContainer'
 import QuizContainer from './Containers/Quiz/QuizContainer'
@@ -39,7 +40,7 @@ function App(props) {
         <Route path="/quiz-creator" component={QuizCreatorContainer} />
         <Route path="/quiz/:id/:userId" component={QuizContainer} />
         <Route
-          path="/userQuizes"
+          path="/user-quizzes"
           render={() => <QuizListContainer userId={props.userId} />}
         />
         <Route path="/" component={QuizListContainer} />
@@ -50,7 +51,7 @@ function App(props) {
 
 const mapStateToProps = (state) => {
   return {
-    userId: state.auth.userId,
+    userId: getUserIdSelector(state),
   }
 }
 const mapDispathToProps = {

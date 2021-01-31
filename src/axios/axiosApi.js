@@ -5,13 +5,13 @@ const instance = Axios.create({
 })
 
 export const Api = {
-  async getQuizes(userId) {
+  async getQuizzes(userId) {
     const path = userId === 'root' ? 'EOg9Cn9Q0TO3whrVIxkH1YEMoiF2' : userId
     try {
       const response = await instance.get(`/${path}.json`)
       return response.data
     } catch (e) {
-      console.log('GetQuizesError', e)
+      console.log('GetQuizzesError', e)
     }
   },
   async getQuize(id, userId) {

@@ -1,21 +1,21 @@
-import { GET_QUIZES, TOGGLE_QUIZES_IS_LOADING } from '../actions/actions';
+import { GET_QUIZZES, TOGGLE_QUIZZES_IS_LOADING } from '../actions/actions'
 
-const initialstate = { quizes: [], quizesIsLoading: false };
+const initialstate = { quizzes: [], quizzesIsLoading: false }
 
 function quizListReducer(state = initialstate, action) {
   switch (action.type) {
-    case GET_QUIZES:
+    case GET_QUIZZES:
       return {
         ...state,
-        quizes: action.payload,
-      };
-    case TOGGLE_QUIZES_IS_LOADING:
+        quizzes: action.payload,
+      }
+    case TOGGLE_QUIZZES_IS_LOADING:
       return {
         ...state,
-        quizesIsLoading: !state.quizesIsLoading,
-      };
+        quizzesIsLoading: !state.quizzesIsLoading,
+      }
     default:
-      return state;
+      return state
   }
 }
-export default quizListReducer;
+export default quizListReducer

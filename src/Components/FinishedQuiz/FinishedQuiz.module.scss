@@ -4,7 +4,7 @@
     color: $fontColor;
     margin: 0 10px;
     border-radius: 5px;
-    background-image: url('../../img/papertexture6052.jpg');
+    background-image: url('../../img/paper.jpg');
     box-shadow:
         0 1px 1px rgba(0, 0, 0, 0.15),
        0 10px 0 -5px #eee,
@@ -29,8 +29,8 @@
     }
 }
 .success{
-    color:green
+    color:$successColor;
 }
 .error {
-    color:red
+    color:$errorColor;
 }

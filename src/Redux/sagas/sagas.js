@@ -8,7 +8,7 @@ import {
 } from 'redux-saga/effects'
 import {
   CREATE_QUIZ_SAGA,
-  GET_QUIZES_SAGA,
+  GET_QUIZZES_SAGA,
   GET_QUIZE_SAGA,
   AUTH_GET_EMAIL_PASSWORD_SAGA,
   AUTH_LOGIN_SAGA,
@@ -18,9 +18,9 @@ import {
   DELETE_QUIZ_SAGA,
 } from '../actions/actions'
 import {
-  getQuizes,
+  getQuizzes,
   getQuiz,
-  toggleQuizesIsLoading,
+  toggleQuizzesIsLoading,
   authGetEmailPassword,
   authGetToken,
   authError,
@@ -28,20 +28,20 @@ import {
   authLogoutSaga,
   authGetUserId,
   authAutologoutSaga,
-  getQuizesSaga,
+  getQuizzesSaga,
   cleanQuizCreator,
 } from '../actioncreators/actioncreators'
 import { Api } from '../../axios/axiosApi'
 ////Quizes sagas
-function* getQuizesWatcher() {
-  yield takeEvery(GET_QUIZES_SAGA, getQuizesWorker)
+function* getQuizzesWatcher() {
+  yield takeEvery(GET_QUIZZES_SAGA, getQuizzesWorker)
 }
-function* getQuizesWorker(action) {
+function* getQuizzesWorker(action) {
   console.log('GetQizesAction', action)
-  yield put(toggleQuizesIsLoading())
-  const data = yield call(Api.getQuizes, action.payload)
-  yield put(getQuizes(data))
-  yield put(toggleQuizesIsLoading())
+  yield put(toggleQuizzesIsLoading())
+  const data = yield call(Api.getQuizzes, action.payload)
+  yield put(getQuizzes(data))
+  yield put(toggleQuizzesIsLoading())
 }
 ///////
 
@@ -84,10 +84,8 @@ function* deleteQuizWorker(action) {
     action.payload.quizId,
     action.payload.userId,
   )
-  console.log('DeleteedResponse', response.status)
   if (response.status === 200) {
-    console.log('Deleted OK')
-    yield put(getQuizesSaga(action.payload.userId))
+    yield put(getQuizzesSaga(action.payload.userId))
   }
 }
 // Auth sagas
@@ -95,7 +93,6 @@ function* authGetEmailPasswordWatcher() {
   yield takeEvery(AUTH_GET_EMAIL_PASSWORD_SAGA, authGetEmailPasswordWorker)
 }
 function* authGetEmailPasswordWorker(action) {
-  console.log('AUTHSAGA--------EM-PASSW', action)
   yield put(authGetEmailPassword(action.payload))
 }
 /////// AuthLogin
@@ -106,7 +103,6 @@ function* authLoginWorker(action) {
   const response = yield call(Api.authLogin, action.payload)
 
   if (response.data) {
-    console.log('Logined', response.data)
     const { idToken, localId, expiresIn, email } = response.data
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
     localStorage.setItem('tokenID', idToken)
@@ -118,7 +114,6 @@ function* authLoginWorker(action) {
     yield put(authError(null))
     yield put(authAutologoutSaga(expiresIn))
   } else {
-    console.log('No-User', response)
     yield put(authError('Email or password error'))
   }
 }
@@ -129,9 +124,7 @@ function* authRegisterWatcher() {
 }
 function* authRegisterWorker(action) {
   const response = yield call(Api.authRegisterSaga, action.payload)
-  console.log('AuthRegister-Respnse', response)
   if (response.data) {
-    console.log('REgistered', response.data)
     const { idToken, localId, expiresIn } = response.data
     const expirationDate = new Date(new Date().getTime() + expiresIn * 1000)
     localStorage.setItem('tokenID', idToken)
@@ -142,7 +135,6 @@ function* authRegisterWorker(action) {
     yield put(authError(null))
     yield put(authAutologoutSaga(expiresIn))
   } else {
-    console.log('REgister Problem', response)
     yield put(authError('Email or password error'))
   }
 }
@@ -173,7 +165,7 @@ function* authAutoLogoutWorker(action) {
 // Root
 export function* rootSaga() {
   yield all([
-    getQuizesWatcher(),
+    getQuizzesWatcher(),
     getQuizWatcher(),
     createquizWatcher(),
     authGetEmailPasswordWatcher(),

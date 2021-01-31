@@ -1,7 +1,10 @@
 import React from 'react'
 import { connect } from 'react-redux'
 import { reset } from 'redux-form'
-import { getQuizCreatorStateSelector } from '../../Redux/selectors/selectors'
+import {
+  getQuizCreatorStateSelector,
+  getUserIdSelector,
+} from '../../Redux/selectors/selectors'
 import {
   addQuestionToQuiz,
   createQuizSaga,
@@ -41,7 +44,7 @@ const QuizCreatorContainer = (props) => {
 
 const mapStateToProps = (state) => ({
   quiz: getQuizCreatorStateSelector(state),
-  userId: state.auth.userId,
+  userId: getUserIdSelector(state),
 })
 const mapDispatchToProps = {
   addQuestionToQuiz,

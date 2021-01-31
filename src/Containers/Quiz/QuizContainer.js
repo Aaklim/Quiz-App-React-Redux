@@ -16,7 +16,6 @@ import FinishedQuiz from '../../Components/FinishedQuiz/FinishedQuiz'
 import ActiveQuiz from '../../Components/ActiveQuiz/ActiveQuiz'
 
 const QuizContainer = (props) => {
-  console.log('QuizContainer', props)
   useEffect(() => {
     const id = props.match.params.id
     const userId = props.match.params.userId
@@ -75,7 +74,7 @@ const QuizContainer = (props) => {
   ) : (
     <div className={classes.Quiz}>
       <div className={classes.QuizWrapper}>
-        <div className={classes.quizTitle}>Ответьте на все вопросы</div>
+        <div className={classes.quizTitle}>Answer all questions</div>
 
         {props.quizstate.isFinished ? (
           <FinishedQuiz

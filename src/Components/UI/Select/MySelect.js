@@ -1,10 +1,11 @@
 import React from 'react'
 import classes from './MySelect.module.scss'
 
-const MySelect = ({ input, meta: { touched, error } }) => {
+const MySelect = ({ input, label, meta: { touched, error } }) => {
+  console.log('select-props', label)
   return (
     <div className={classes.select}>
-      <label>Правильный ответ</label>
+      <label>{label}</label>
       <select {...input}>
         <option value="1">1</option>
         <option value="2">2</option>

@@ -24,9 +24,9 @@
 }
 .error{
     label{
-        color:red
+        color:$errorColor;
     }
     span{
-        color:red
+        color:$errorColor;
     }
 }

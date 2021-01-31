@@ -3,11 +3,12 @@ import Quizlist from './Quizlist'
 import classes from './QuizListContainer.module.scss'
 import { connect } from 'react-redux'
 import {
-  getQuizesSelector,
-  quizesIsLoadingSelector,
+  getQuizzesSelector,
+  quizzesIsLoadingSelector,
+  getUserEmailSelector,
 } from '../../Redux/selectors/selectors'
 import {
-  getQuizesSaga,
+  getQuizzesSaga,
   deleteQuizSaga,
 } from '../../Redux/actioncreators/actioncreators'
 import Loader from '../../Components/UI/Loader/Loader'
@@ -17,18 +18,19 @@ const QuizListContainer = ({
   userId = 'root',
   deleteQuizSaga,
   isLoading,
-  getQuizesSaga,
-  quizes,
+  getQuizzesSaga,
+  quizzes,
+  userEmail,
 }) => {
   useEffect(() => {
-    getQuizesSaga(userId)
-  }, [userId, getQuizesSaga])
+    getQuizzesSaga(userId)
+  }, [userId, getQuizzesSaga])
   const cls = [classes.delete, 'fas fa-times']
 
-  const renderQuizes = (quizes) => {
-    if (!quizes) return <h1>No Quizes</h1>
-    return Object.keys(quizes).map((quizItem, index) => {
-      const quiz = quizes[quizItem]
+  const renderQuizzes = (quizzes) => {
+    if (!quizzes) return <h1 className={classes.emptyQuizess}>No Quizzes</h1>
+    return Object.keys(quizzes).map((quizItem, index) => {
+      const quiz = quizzes[quizItem]
       return (
         <li key={index}>
           <NavLink to={'/quiz/' + quizItem + `/${userId}`}>
@@ -45,17 +47,26 @@ const QuizListContainer = ({
     })
   }
 
-  return isLoading ? <Loader /> : <Quizlist quizes={renderQuizes(quizes)} />
+  return isLoading ? (
+    <Loader />
+  ) : (
+    <Quizlist
+      quizzes={renderQuizzes(quizzes)}
+      userId={userId}
+      userEmail={userEmail}
+    />
+  )
 }
 
 const mapStateToProps = (state) => {
   return {
-    quizes: getQuizesSelector(state),
-    isLoading: quizesIsLoadingSelector(state),
+    quizzes: getQuizzesSelector(state),
+    isLoading: quizzesIsLoadingSelector(state),
+    userEmail: getUserEmailSelector(state),
   }
 }
 const mapDispatchToProps = {
-  getQuizesSaga,
+  getQuizzesSaga,
   deleteQuizSaga,
 }
 

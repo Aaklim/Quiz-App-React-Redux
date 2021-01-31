@@ -8,6 +8,7 @@ const Layout = (props) => {
   const toggleMenuHandler = () => {
     setMenu(!menu)
   }
+
   return (
     <div className={classes.Layout}>
       <Drawer isOpen={menu} onClick={toggleMenuHandler} />
