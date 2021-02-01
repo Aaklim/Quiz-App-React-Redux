@@ -1,7 +1,10 @@
+/* eslint-disable no-shadow */
 import React, { useEffect } from 'react'
+import { connect } from 'react-redux'
+import { NavLink } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import Quizlist from './Quizlist'
 import classes from './QuizListContainer.module.scss'
-import { connect } from 'react-redux'
 import {
   getQuizzesSelector,
   quizzesIsLoadingSelector,
@@ -12,10 +15,9 @@ import {
   deleteQuizSaga,
 } from '../../Redux/actioncreators/actioncreators'
 import Loader from '../../Components/UI/Loader/Loader'
-import { NavLink } from 'react-router-dom'
 
 const QuizListContainer = ({
-  userId = 'root',
+  userId,
   deleteQuizSaga,
   isLoading,
   getQuizzesSaga,
@@ -33,14 +35,14 @@ const QuizListContainer = ({
       const quiz = quizzes[quizItem]
       return (
         <li key={index}>
-          <NavLink to={'/quiz/' + quizItem + `/${userId}`}>
+          <NavLink to={`/quiz/${quizItem}/${userId}`}>
             {quiz[0].quizName}
           </NavLink>
           {userId !== 'root' ? (
             <div
               className={cls.join(' ')}
               onClick={() => deleteQuizSaga(quizItem, userId)}
-            ></div>
+            />
           ) : null}
         </li>
       )
@@ -57,14 +59,24 @@ const QuizListContainer = ({
     />
   )
 }
-
-const mapStateToProps = (state) => {
-  return {
-    quizzes: getQuizzesSelector(state),
-    isLoading: quizzesIsLoadingSelector(state),
-    userEmail: getUserEmailSelector(state),
-  }
+QuizListContainer.propTypes = {
+  userId: PropTypes.string,
+  deleteQuizSaga: PropTypes.func.isRequired,
+  isLoading: PropTypes.bool.isRequired,
+  getQuizzesSaga: PropTypes.func.isRequired,
+  quizzes: PropTypes.objectOf(PropTypes.array),
+  userEmail: PropTypes.string.isRequired,
 }
+QuizListContainer.defaultProps = {
+  userId: 'root',
+  quizzes: null,
+}
+
+const mapStateToProps = (state) => ({
+  quizzes: getQuizzesSelector(state),
+  isLoading: quizzesIsLoadingSelector(state),
+  userEmail: getUserEmailSelector(state),
+})
 const mapDispatchToProps = {
   getQuizzesSaga,
   deleteQuizSaga,

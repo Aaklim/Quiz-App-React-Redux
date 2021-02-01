@@ -1,8 +1,7 @@
 {
     "extends": [
         "react-app",
-        "react-app/jest",
-        "airbnb",
+        "react-app/jest",     
         "prettier",
         "prettier/react"
     ],
@@ -24,6 +23,7 @@
             2,
             "never"
         ]
+      
     }
    
    

@@ -4,14 +4,14 @@ const instance = Axios.create({
   baseURL: 'https://quiz-app-react-redux.firebaseio.com/',
 })
 
-export const Api = {
+const Api = {
   async getQuizzes(userId) {
     const path = userId === 'root' ? 'EOg9Cn9Q0TO3whrVIxkH1YEMoiF2' : userId
     try {
       const response = await instance.get(`/${path}.json`)
       return response.data
     } catch (e) {
-      console.log('GetQuizzesError', e)
+      return e
     }
   },
   async getQuize(id, userId) {
@@ -20,7 +20,7 @@ export const Api = {
       const response = await instance.get(`/${root}/${id}.json`)
       return response.data
     } catch (e) {
-      console.log('GetQuizError', e)
+      return e
     }
   },
   async createQuiz(quiz, userId) {
@@ -28,7 +28,7 @@ export const Api = {
       const response = await instance.post(`/${userId}.json`, quiz)
       return response.data
     } catch (e) {
-      console.log('createQuizError', e)
+      return e
     }
   },
   async deleteQuiz(quizId, userId) {
@@ -36,7 +36,7 @@ export const Api = {
       const response = await instance.delete(`/${userId}/${quizId}.json`)
       return response
     } catch (e) {
-      console.log('DeletequizError', e)
+      return e
     }
   },
   async authLogin({ email, password }) {
@@ -84,3 +84,5 @@ export const Api = {
     }
   },
 }
+
+export default Api

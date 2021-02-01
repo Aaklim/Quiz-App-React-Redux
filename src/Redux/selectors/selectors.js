@@ -1,6 +1,6 @@
 export const getQuizzesSelector = (state) => state.quizList.quizzes
 export const quizzesIsLoadingSelector = (state) =>
-  state.quizList.quizesIsLoading
+  state.quizList.quizzesIsLoading
 export const getQuizSelector = (state) => state.quiz
 export const getQuizCreatorStateSelector = (state) => state.quizCreator.quiz
 export const getAuthErrorSelector = (state) => state.auth.error

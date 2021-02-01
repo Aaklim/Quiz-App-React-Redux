@@ -1,6 +1,8 @@
+/* eslint-disable no-shadow */
 import React from 'react'
 import { connect } from 'react-redux'
 import { reset } from 'redux-form'
+import PropTypes from 'prop-types'
 import {
   getQuizCreatorStateSelector,
   getUserIdSelector,
@@ -11,8 +13,14 @@ import {
 } from '../../Redux/actioncreators/actioncreators'
 import QuizCreatorForm from './QuizCreatorForm'
 
-const QuizCreatorContainer = (props) => {
-  const quizLength = props.quiz.length
+const QuizCreatorContainer = ({
+  quiz,
+  addQuestionToQuiz,
+  reset,
+  createQuizSaga,
+  userId,
+}) => {
+  const quizLength = quiz.length
   const submitHandler = (e) => {
     const questionItem = {
       quizName: e.quizName,
@@ -26,12 +34,12 @@ const QuizCreatorContainer = (props) => {
         { id: 4, text: e.answer4 },
       ],
     }
-    props.addQuestionToQuiz(questionItem)
-    props.reset('quizCreatorform')
+    addQuestionToQuiz(questionItem)
+    reset('quizCreatorform')
   }
   const createQuiz = (e) => {
     e.preventDefault()
-    props.createQuizSaga(props.quiz, props.userId)
+    createQuizSaga(quiz, userId)
   }
   return (
     <QuizCreatorForm
@@ -46,6 +54,20 @@ const mapStateToProps = (state) => ({
   quiz: getQuizCreatorStateSelector(state),
   userId: getUserIdSelector(state),
 })
+
+QuizCreatorContainer.propTypes = {
+  quiz: PropTypes.array,
+  addQuestionToQuiz: PropTypes.func.isRequired,
+  reset: PropTypes.func.isRequired,
+  createQuizSaga: PropTypes.func.isRequired,
+  userId: PropTypes.string,
+}
+
+QuizCreatorContainer.defaultProps = {
+  quiz: [],
+  userId: null,
+}
+
 const mapDispatchToProps = {
   addQuestionToQuiz,
   reset,

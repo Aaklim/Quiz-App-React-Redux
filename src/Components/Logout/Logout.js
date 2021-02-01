@@ -1,13 +1,18 @@
+/* eslint-disable no-shadow */
 import React, { useEffect } from 'react'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import { authLogoutSaga } from '../../Redux/actioncreators/actioncreators'
 
-const Logout = (props) => {
+const Logout = ({ authLogoutSaga }) => {
   useEffect(() => {
-    props.authLogoutSaga()
-  }, [props])
+    authLogoutSaga()
+  }, [authLogoutSaga])
   return <Redirect to="/" />
+}
+Logout.propTypes = {
+  authLogoutSaga: PropTypes.func.isRequired,
 }
 const mapDispatchToProps = {
   authLogoutSaga,

@@ -14,10 +14,10 @@
     display: flex;
     justify-content: space-between;
     margin-bottom: 20px;
-    & .title {
+    .title {
       font-weight: 500;
     }
-    & .questionNumber {
+    .questionNumber {
       min-width: 45px;
       font-size: 0.8rem;
       align-self: center;

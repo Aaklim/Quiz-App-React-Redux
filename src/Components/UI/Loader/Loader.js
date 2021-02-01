@@ -1,23 +1,21 @@
-import React from 'react';
-import classes from './Loader.module.scss';
+import React from 'react'
+import classes from './Loader.module.scss'
 
-const Loader = () => {
-  return (
-    <div className={classes.ldsSpinner}>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-      <div></div>
-    </div>
-  );
-};
+const Loader = () => (
+  <div className={classes.ldsSpinner}>
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+    <div />
+  </div>
+)
 
-export default Loader;
+export default Loader

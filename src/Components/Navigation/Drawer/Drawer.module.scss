@@ -12,13 +12,13 @@
   transform: translateX(0px);
   transition: transform 0.22s ease-in ;
   z-index: 100;
-  & ul {
+  ul {
     padding-left: 20px;
   }
-  & li {
+  li {
     margin-bottom: 10px;
     
-    & a {
+   a {
       transition: color 0.3s ease-in-out;
       text-shadow:$text-shadow;
       flex-grow: 1;

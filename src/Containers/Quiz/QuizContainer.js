@@ -1,8 +1,11 @@
+/* eslint-disable no-param-reassign */
+/* eslint-disable no-shadow */
 import React, { useEffect } from 'react'
-import classes from './Quiz.module.scss'
 import { connect } from 'react-redux'
 import { compose } from 'redux'
 import { withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
+import classes from './Quiz.module.scss'
 import {
   getQuizeSaga,
   setAnswerToState,
@@ -15,50 +18,56 @@ import Loader from '../../Components/UI/Loader/Loader'
 import FinishedQuiz from '../../Components/FinishedQuiz/FinishedQuiz'
 import ActiveQuiz from '../../Components/ActiveQuiz/ActiveQuiz'
 
-const QuizContainer = (props) => {
+const QuizContainer = ({
+  match: {
+    params: { id, userId },
+  },
+  getQuizeSaga,
+  setQuizIsFinished,
+  retryQuiz,
+  setAnswerToState,
+  toggleActiveQuestion,
+  quizstate: { activeQuestion, quiz, answerState, results, isFinished },
+}) => {
   useEffect(() => {
-    const id = props.match.params.id
-    const userId = props.match.params.userId
+    getQuizeSaga(id, userId)
+  }, [id, userId, getQuizeSaga])
 
-    props.getQuizeSaga(id, userId)
-  }, [])
-
+  const isQuizFinished = () => activeQuestion + 1 === quiz.length
   const createTimeoutAfterAnswer = (time) => {
     const timeout = window.setTimeout(() => {
       if (isQuizFinished()) {
-        props.setQuizIsFinished()
+        setQuizIsFinished()
       } else {
-        props.toggleActiveQuestion()
+        toggleActiveQuestion()
       }
 
       window.clearTimeout(timeout)
     }, time)
   }
-  const isQuizFinished = () => {
-    return props.quizstate.activeQuestion + 1 === props.quizstate.quiz.length
-  }
+
   const onAnswerClickhandler = (answerId) => {
-    if (props.quizstate.answerState) {
-      const key = Object.keys(props.quizstate.answerState)[0]
-      if (props.quizstate.answerState[key] === 'success') {
+    if (answerState) {
+      const key = Object.keys(answerState)[0]
+      if (answerState[key] === 'success') {
         return
       }
     }
 
-    const question = props.quizstate.quiz[props.quizstate.activeQuestion]
-    const results = props.quizstate.results
-    if (question.rightAnswerId === answerId) {
-      if (!results[question.id]) {
-        results[question.id] = 'success'
+    const currentQuestion = quiz[activeQuestion]
+
+    if (currentQuestion.rightAnswerId === answerId) {
+      if (!results[currentQuestion.id]) {
+        results[currentQuestion.id] = 'success'
       }
-      props.setAnswerToState({
+      setAnswerToState({
         answerState: { [answerId]: 'success' },
         results,
       })
       createTimeoutAfterAnswer(1500)
     } else {
-      results[question.id] = 'error'
-      props.setAnswerToState({
+      results[currentQuestion.id] = 'error'
+      setAnswerToState({
         answerState: { [answerId]: 'error' },
         results,
       })
@@ -66,46 +75,78 @@ const QuizContainer = (props) => {
     }
   }
   const onRetryClickHandler = () => {
-    props.retryQuiz()
+    retryQuiz()
   }
 
-  return props.quizstate.quiz.length === 0 ? (
+  return quiz.length === 0 ? (
     <Loader />
   ) : (
     <div className={classes.Quiz}>
       <div className={classes.QuizWrapper}>
         <div className={classes.quizTitle}>Answer all questions</div>
 
-        {props.quizstate.isFinished ? (
+        {isFinished ? (
           <FinishedQuiz
-            results={props.quizstate.results}
-            quiz={props.quizstate.quiz}
+            results={results}
+            quiz={quiz}
             onRetry={onRetryClickHandler}
           />
         ) : (
           <ActiveQuiz
-            answers={
-              props.quizstate.quiz[props.quizstate.activeQuestion].answers
-            }
-            question={
-              props.quizstate.quiz[props.quizstate.activeQuestion].question
-            }
+            answers={quiz[activeQuestion].answers}
+            question={quiz[activeQuestion].question}
             onAnswerClick={onAnswerClickhandler}
-            quizLength={props.quizstate.quiz.length}
-            answerNumber={props.quizstate.activeQuestion + 1}
-            state={props.quizstate.answerState}
+            quizLength={quiz.length}
+            answerNumber={activeQuestion + 1}
+            state={answerState}
           />
         )}
       </div>
     </div>
   )
 }
+QuizContainer.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.objectOf(PropTypes.string),
+  }).isRequired,
+  getQuizeSaga: PropTypes.func.isRequired,
+  setAnswerToState: PropTypes.func.isRequired,
+  setQuizIsFinished: PropTypes.func.isRequired,
+  toggleActiveQuestion: PropTypes.func.isRequired,
+  retryQuiz: PropTypes.func.isRequired,
+  quizstate: PropTypes.shape({
+    activeQuestion: PropTypes.number,
+    quiz: PropTypes.arrayOf(
+      PropTypes.shape({
+        answers: PropTypes.arrayOf(
+          PropTypes.shape({
+            id: PropTypes.number,
+            text: PropTypes.string,
+          }),
+        ),
 
-const mapStateToProps = (state) => {
-  return {
-    quizstate: getQuizSelector(state),
-  }
+        id: PropTypes.number.isRequired,
+        question: PropTypes.string.isRequired,
+        rightAnswerId: PropTypes.number.isRequired,
+      }),
+    ).isRequired,
+    answerState: PropTypes.objectOf(PropTypes.string),
+    results: PropTypes.objectOf(PropTypes.string),
+    isFinished: PropTypes.bool.isRequired,
+  }),
 }
+
+QuizContainer.defaultProps = {
+  quizstate: PropTypes.shape({
+    activeQuestion: 0,
+    answerState: null,
+    results: {},
+  }),
+}
+
+const mapStateToProps = (state) => ({
+  quizstate: getQuizSelector(state),
+})
 const mapDispatchToProps = {
   getQuizeSaga,
   setAnswerToState,

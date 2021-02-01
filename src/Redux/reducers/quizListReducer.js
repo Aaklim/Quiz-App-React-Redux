@@ -1,6 +1,6 @@
 import { GET_QUIZZES, TOGGLE_QUIZZES_IS_LOADING } from '../actions/actions'
 
-const initialstate = { quizzes: [], quizzesIsLoading: false }
+const initialstate = { quizzes: {}, quizzesIsLoading: false }
 
 function quizListReducer(state = initialstate, action) {
   switch (action.type) {

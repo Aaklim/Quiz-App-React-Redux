@@ -31,26 +31,23 @@ import {
   getQuizzesSaga,
   cleanQuizCreator,
 } from '../actioncreators/actioncreators'
-import { Api } from '../../axios/axiosApi'
-////Quizes sagas
-function* getQuizzesWatcher() {
-  yield takeEvery(GET_QUIZZES_SAGA, getQuizzesWorker)
-}
+import Api from '../../axios/axiosApi'
+/// /Quizes sagas
+
 function* getQuizzesWorker(action) {
-  console.log('GetQizesAction', action)
   yield put(toggleQuizzesIsLoading())
   const data = yield call(Api.getQuizzes, action.payload)
   yield put(getQuizzes(data))
   yield put(toggleQuizzesIsLoading())
 }
-///////
+function* getQuizzesWatcher() {
+  yield takeEvery(GET_QUIZZES_SAGA, getQuizzesWorker)
+}
+/// ////
 
 // Quiz sagas
-function* getQuizWatcher() {
-  yield takeEvery(GET_QUIZE_SAGA, getQuizWorker)
-}
+
 function* getQuizWorker(action) {
-  console.log('GetQuiz-action', action)
   const data = yield call(
     Api.getQuize,
     action.payload.id,
@@ -58,26 +55,24 @@ function* getQuizWorker(action) {
   )
   yield put(getQuiz(data))
 }
-///////
+function* getQuizWatcher() {
+  yield takeEvery(GET_QUIZE_SAGA, getQuizWorker)
+}
+/// ////
 
-///CreateQuiz sagas
+/// CreateQuiz sagas
+
+function* createQuizWorker(action) {
+  yield call(Api.createQuiz, action.payload.quiz, action.payload.userId)
+
+  yield put(cleanQuizCreator())
+}
 function* createquizWatcher() {
   yield takeEvery(CREATE_QUIZ_SAGA, createQuizWorker)
 }
-function* createQuizWorker(action) {
-  const response = yield call(
-    Api.createQuiz,
-    action.payload.quiz,
-    action.payload.userId,
-  )
-  console.log('Creator-Response', response)
-  yield put(cleanQuizCreator())
-}
-/////
-///Delete Quiz
-function* deleteQuizWatcher() {
-  yield takeEvery(DELETE_QUIZ_SAGA, deleteQuizWorker)
-}
+/// //
+/// Delete Quiz
+
 function* deleteQuizWorker(action) {
   const response = yield call(
     Api.deleteQuiz,
@@ -88,17 +83,19 @@ function* deleteQuizWorker(action) {
     yield put(getQuizzesSaga(action.payload.userId))
   }
 }
-// Auth sagas
-function* authGetEmailPasswordWatcher() {
-  yield takeEvery(AUTH_GET_EMAIL_PASSWORD_SAGA, authGetEmailPasswordWorker)
+function* deleteQuizWatcher() {
+  yield takeEvery(DELETE_QUIZ_SAGA, deleteQuizWorker)
 }
+// Auth sagas
+
 function* authGetEmailPasswordWorker(action) {
   yield put(authGetEmailPassword(action.payload))
 }
-/////// AuthLogin
-function* authLoginWatcher() {
-  yield takeEvery(AUTH_LOGIN_SAGA, authLoginWorker)
+function* authGetEmailPasswordWatcher() {
+  yield takeEvery(AUTH_GET_EMAIL_PASSWORD_SAGA, authGetEmailPasswordWorker)
 }
+/// //// AuthLogin
+
 function* authLoginWorker(action) {
   const response = yield call(Api.authLogin, action.payload)
 
@@ -117,11 +114,11 @@ function* authLoginWorker(action) {
     yield put(authError('Email or password error'))
   }
 }
-////// AuthRegister
-
-function* authRegisterWatcher() {
-  yield takeLatest(AUTH_REGISTER_SAGA, authRegisterWorker)
+function* authLoginWatcher() {
+  yield takeEvery(AUTH_LOGIN_SAGA, authLoginWorker)
 }
+/// /// AuthRegister
+
 function* authRegisterWorker(action) {
   const response = yield call(Api.authRegisterSaga, action.payload)
   if (response.data) {
@@ -138,12 +135,12 @@ function* authRegisterWorker(action) {
     yield put(authError('Email or password error'))
   }
 }
-
-///// AuthLogout
-
-function* authLogoutWatcher() {
-  yield takeEvery(AUTH_LOGOUT_SAGA, authLogoutWorker)
+function* authRegisterWatcher() {
+  yield takeLatest(AUTH_REGISTER_SAGA, authRegisterWorker)
 }
+
+/// // AuthLogout
+
 function* authLogoutWorker() {
   localStorage.removeItem('tokenID')
   localStorage.removeItem('userId')
@@ -151,19 +148,20 @@ function* authLogoutWorker() {
   localStorage.removeItem('userEmail')
   yield put(authLogout())
 }
-
-//// AuthAutoLogout
-
-function* authAutoLogoutWatcher() {
-  yield takeLatest(AUTH_AUTO_LOGOUT_SAGA, authAutoLogoutWorker)
+function* authLogoutWatcher() {
+  yield takeEvery(AUTH_LOGOUT_SAGA, authLogoutWorker)
 }
+/// / AuthAutoLogout
 function* authAutoLogoutWorker(action) {
   yield delay(action.payload * 1000)
   yield put(authLogoutSaga())
 }
+function* authAutoLogoutWatcher() {
+  yield takeLatest(AUTH_AUTO_LOGOUT_SAGA, authAutoLogoutWorker)
+}
 
 // Root
-export function* rootSaga() {
+function* rootSaga() {
   yield all([
     getQuizzesWatcher(),
     getQuizWatcher(),
@@ -176,3 +174,4 @@ export function* rootSaga() {
     deleteQuizWatcher(),
   ])
 }
+export default rootSaga

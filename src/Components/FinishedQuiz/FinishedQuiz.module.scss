@@ -2,6 +2,7 @@
 @import '../../SCSS/shadows';
 .FinishedQuiz{
     color: $fontColor;
+    font-weight: 500;
     margin: 0 10px;
     border-radius: 5px;
     background-image: url('../../img/paper.jpg');
@@ -22,7 +23,7 @@
     .rightAnswers {
         margin-bottom: 10px;
         text-align: center;
-        font-weight: 500;
+        font-weight: 700;
     }
     .buttons{
         text-align: center;
@@ -33,4 +34,8 @@
 }
 .error {
     color:$errorColor;
+}
+.correct{
+    position: relative;
+    left:3px
 }

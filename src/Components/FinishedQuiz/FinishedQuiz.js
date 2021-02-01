@@ -1,26 +1,27 @@
 import React from 'react'
+import { Link, withRouter } from 'react-router-dom'
+import PropTypes from 'prop-types'
 import classes from './FinishedQuiz.module.scss'
-import { Link } from 'react-router-dom'
 import Button from '../UI/Button/Button'
-import { withRouter } from 'react-router-dom'
 
-const FinishedQuiz = (props) => {
-  const successCount = Object.keys(props.results).reduce((total, key) => {
-    if (props.results[key] === 'success') {
-      total++
+const FinishedQuiz = ({ results, quiz, onRetry, match }) => {
+  const successCount = Object.keys(results).reduce((total, key) => {
+    if (results[key] === 'success') {
+      total += 1
     }
     return total
   }, 0)
-  const quizzesPath =
-    props.match.params.userId === 'root' ? '/' : '/user-quizzes'
+  const quizzesPath = match.params.userId === 'root' ? '/' : '/user-quizzes'
   return (
     <div className={classes.FinishedQuiz}>
       <ul>
-        {props.quiz.map((quizItem, index) => {
+        {quiz.map((quizItem, index) => {
           const cls = [
             'fas',
-            props.results[quizItem.id] === 'error' ? 'fa-times' : 'fa-check',
-            classes[props.results[quizItem.id]],
+            results[quizItem.id] === 'error'
+              ? 'fa-times'
+              : `fa-check ${classes.correct} `,
+            classes[results[quizItem.id]],
           ]
 
           return (
@@ -36,18 +37,25 @@ const FinishedQuiz = (props) => {
       </ul>
       <div className={classes.rightAnswers}>
         Correct <span className={classes.success}>{successCount}</span> from{' '}
-        {props.quiz.length}
+        {quiz.length}
       </div>
       <div className={classes.buttons}>
-        <Button onClick={props.onRetry} type="primary">
+        <Button onClick={onRetry} styleType="primary">
           repeat
         </Button>
         <Link to={quizzesPath}>
-          <Button type="success">Quizzes</Button>
+          <Button styleType="success">Quizzes</Button>
         </Link>
       </div>
     </div>
   )
 }
-
+FinishedQuiz.propTypes = {
+  results: PropTypes.objectOf(PropTypes.string).isRequired,
+  onRetry: PropTypes.func.isRequired,
+  quiz: PropTypes.arrayOf(PropTypes.object).isRequired,
+  match: PropTypes.shape({
+    params: PropTypes.objectOf(PropTypes.string),
+  }).isRequired,
+}
 export default withRouter(FinishedQuiz)

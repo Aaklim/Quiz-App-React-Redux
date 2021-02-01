@@ -1,11 +1,10 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.module.scss';
-import App from './App';
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { store } from './Redux/store/store';
-import reportWebVitals from './reportWebVitals';
+import React from 'react'
+import ReactDOM from 'react-dom'
+import './index.module.scss'
+import { Provider } from 'react-redux'
+import { BrowserRouter as Router } from 'react-router-dom'
+import App from './App'
+import store from './Redux/store/store'
 
 const app = (
   <Provider store={store}>
@@ -15,8 +14,6 @@ const app = (
       </React.StrictMode>
     </Router>
   </Provider>
-);
+)
 
-ReactDOM.render(app, document.getElementById('root'));
-
-reportWebVitals();
+ReactDOM.render(app, document.getElementById('root'))

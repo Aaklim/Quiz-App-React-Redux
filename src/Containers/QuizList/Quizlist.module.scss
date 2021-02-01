@@ -9,22 +9,22 @@
   background: $background;
   .content {
     padding: 0 20px;
-    & .title {
+    .title {
       margin-bottom: 20px;
       text-align: center;
       text-shadow: $text-shadow;
       font-size: 2.5rem;
       color: $fontColor;
     }
-    & .quizzes {
+    .quizzes {
       display: flex;
       flex-direction: column;
       list-style-position: inside;
       counter-reset: li;
-      & li {
+       li {
         margin-bottom: 10px;
       }
-      & a {
+       a {
         flex-grow: 1;
         text-shadow: $text-shadow;
         color: $fontColor;
