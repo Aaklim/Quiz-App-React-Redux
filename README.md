@@ -1,6 +1,7 @@
-# Getting Started with Create React App
+## Quiz-App-React-Redux
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project allows you to create your own quizzes.Quiz-App-React-Redux is fully responsive application .Data stored remotely on the server through client-server interactions (REST-API).It has some root quizzes, you can login and create your own quizzes with multiple answers.
+React,React(hooks),Saaa(SCSS),react-router-dom,React-redux,Redux,Redux-Saga,Prop-types,Axios.Deploy on Firebase.
 
 ## Available Scripts
 
